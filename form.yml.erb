@@ -1,0 +1,24 @@
+# Batch Connect app configuration file
+#
+# @note Used to define the submitted cluster, title, description, and
+
+cluster: "quests"
+
+form:
+  # What version (prod or dev) of TDPortal would you like to run
+  - version
+  - user_email
+
+attributes:
+  version:
+    widget: select
+    label: "TDPortal version"
+    help: "What version of <My Application> would you like to launch"
+    options:
+      - [ "TDPortal Production", "/projects/b1035/TDPortal-Container-Images/TDPortal-prod.sif" ]
+      - [ "TDPortal Development", "/projects/b1035/TDPortal-Container-Images/TDPortal-dev.sif" ]
+
+  user_email:
+    label: "Email Address (Optional)"
+    help: |
+      Enter your email address if you would like to receive an email when the session starts. Leave blank for no email.
