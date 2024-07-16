@@ -4,3 +4,6 @@
 # Find available port to run TDPortal On
 port=$(find_port localhost 7000 11000 )
 export ASPNETCORE_URLS="http://+:$port"
+hostname
+export HOSTNAME=$(hostname -s)
+export ASPNETCORE_BASE_URL="/rnode/$HOSTNAME/$port"
