@@ -41,7 +41,7 @@ batch_connect:
     <%- end %>
 
     # Need to add the specific bidning based on whether this is an external or internal user
-    export SING_BINDS="$SING_BINDS "--bind /share/krgData "
+    export SING_BINDS="$SING_BINDS --bind /share/krgData "
     #export SING_BINDS="--bind /share/NU-PCEDATA "
 
     singularity exec $SING_GPU $SING_BINDS "${container_image}" /bin/bash container.sh
