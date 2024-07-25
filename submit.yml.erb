@@ -47,9 +47,9 @@ batch_connect:
 
     # Need to determine what path to bind based on the e-mail of the user the specific bindings are based on whether this is an external or internal user
     <%- if mailaddr.include?("northwestern.edu") %>
-    export SING_BINDS="$SING_BINDS --bind /share/krgData "
+    export SING_BINDS="$SING_BINDS --bind /share/krgData:/share/krgData:ro "
     <%- else %>
-    export SING_BINDS="$SING_BINDS --bind /share/NU-PCEDATA/<%= mailaddr %> "
+    export SING_BINDS="$SING_BINDS --bind /share/NU-PCEDATA:/share/NU-PCEDATA:ro "
     <%- end %>
 
     singularity exec $SING_GPU $SING_BINDS "${container_image}" /bin/bash container.sh
