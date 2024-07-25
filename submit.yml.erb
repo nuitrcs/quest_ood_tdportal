@@ -1,5 +1,8 @@
 <%
   groups = OodSupport::User.new.groups.map(&:name).drop(1)
+  emailcmd = '/etc/ood/config/helper_scripts/get_user_email_from_netid.sh ' + ENV["USER"]
+  mailaddr = %x[ #{emailcmd}]
+  mailaddr = mailaddr.strip
 %>
 ---
 batch_connect:
@@ -40,9 +43,14 @@ batch_connect:
     export SING_GPU=""
     <%- end %>
 
-    # Need to add the specific bidning based on whether this is an external or internal user
+    export SINGULARITYENV_TDPORTAL_USER_EMAIL=<%= mailaddr %>
+
+    # Need to determine what path to bind based on the e-mail of the user the specific bindings are based on whether this is an external or internal user
+    <%- if mailaddr.include?("northwestern.edu") %>
     export SING_BINDS="$SING_BINDS --bind /share/krgData "
-    #export SING_BINDS="--bind /share/NU-PCEDATA "
+    <%- else %>
+    export SING_BINDS="$SING_BINDS --bind /share/NU-PCEDATA/<%= mailaddr %> "
+    <%- end %>
 
     singularity exec $SING_GPU $SING_BINDS "${container_image}" /bin/bash container.sh
 
